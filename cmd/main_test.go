@@ -18,25 +18,11 @@ func SetUpRouter() *gin.Engine {
 	return router
 }
 
-func TestGetAllAppointments(t *testing.T) {
-	r := SetUpRouter()
-	r.GET("/appointments/all", handlers.GetAllAppointments)
-	req, _ := http.NewRequest("GET", "/appointments/all", nil)
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
-
-	var appointments []models.Appointment
-	json.Unmarshal(w.Body.Bytes(), &appointments)
-
-	assert.Equal(t, http.StatusOK, w.Code)
-	assert.NotEmpty(t, appointments)
-}
-
 func TestGetScheduledAppointments_TrainerExists(t *testing.T) {
 	r := SetUpRouter()
-	r.GET("/appointments/scheduled/:trainer_id", handlers.GetScheduledAppointments)
+	r.GET("/v1/appointments/scheduled/:trainer_id", handlers.GetScheduledAppointments)
 
-	req, _ := http.NewRequest("GET", "/appointments/scheduled/1", nil)
+	req, _ := http.NewRequest("GET", "/v1/appointments/scheduled/1", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
@@ -45,9 +31,9 @@ func TestGetScheduledAppointments_TrainerExists(t *testing.T) {
 
 func TestGetScheduledAppointments_TrainerDoesntExist(t *testing.T) {
 	r := SetUpRouter()
-	r.GET("/appointments/scheduled/:trainer_id", handlers.GetScheduledAppointments)
+	r.GET("/v1/appointments/scheduled/:trainer_id", handlers.GetScheduledAppointments)
 
-	req, _ := http.NewRequest("GET", "/appointments/scheduled/100", nil)
+	req, _ := http.NewRequest("GET", "/v1/appointments/scheduled/100", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
@@ -56,7 +42,7 @@ func TestGetScheduledAppointments_TrainerDoesntExist(t *testing.T) {
 
 func TestBookAppointment(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2020-01-26T12:30:00-08:00",
@@ -65,7 +51,7 @@ func TestBookAppointment(t *testing.T) {
 		Trainer_id: 3,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -74,7 +60,7 @@ func TestBookAppointment(t *testing.T) {
 
 func TestBookAppointment_OutsideBusinessHours(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2020-01-26T19:30:00-08:00",
@@ -83,7 +69,7 @@ func TestBookAppointment_OutsideBusinessHours(t *testing.T) {
 		Trainer_id: 3,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -92,7 +78,7 @@ func TestBookAppointment_OutsideBusinessHours(t *testing.T) {
 
 func TestBookAppointment_Doublebooked(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2019-01-26T10:30:00-08:00",
@@ -101,7 +87,7 @@ func TestBookAppointment_Doublebooked(t *testing.T) {
 		Trainer_id: 1,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -110,7 +96,7 @@ func TestBookAppointment_Doublebooked(t *testing.T) {
 
 func TestBookAppointment_InvalidDuration(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2020-01-26T12:30:00-08:00",
@@ -119,7 +105,7 @@ func TestBookAppointment_InvalidDuration(t *testing.T) {
 		Trainer_id: 1,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -128,7 +114,7 @@ func TestBookAppointment_InvalidDuration(t *testing.T) {
 
 func TestBookAppointment_TrainerDoesntExist(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2020-01-26T12:30:00-08:00",
@@ -137,7 +123,7 @@ func TestBookAppointment_TrainerDoesntExist(t *testing.T) {
 		Trainer_id: 31,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -146,7 +132,7 @@ func TestBookAppointment_TrainerDoesntExist(t *testing.T) {
 
 func TestBookAppointment_UserDoesntExist(t *testing.T) {
 	r := SetUpRouter()
-	r.POST("/appointments", handlers.BookAppointment)
+	r.POST("/v1/appointments", handlers.BookAppointment)
 
 	appointment := models.SubmittedAppointment{
 		Ends_at:    "2020-01-26T12:30:00-08:00",
@@ -155,7 +141,7 @@ func TestBookAppointment_UserDoesntExist(t *testing.T) {
 		Trainer_id: 3,
 	}
 	jsonValue, _ := json.Marshal(appointment)
-	req, _ := http.NewRequest("POST", "/appointments", bytes.NewBuffer(jsonValue))
+	req, _ := http.NewRequest("POST", "/v1/appointments", bytes.NewBuffer(jsonValue))
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
@@ -164,9 +150,9 @@ func TestBookAppointment_UserDoesntExist(t *testing.T) {
 
 func TestGetAvailableAppointments(t *testing.T) {
 	r := SetUpRouter()
-	r.GET("/appointments/available/:trainer_id", handlers.GetAvailableAppointments)
+	r.GET("/v1/appointments/available/:trainer_id", handlers.GetAvailableAppointments)
 
-	req, _ := http.NewRequest("GET", "/appointments/available/1?starts_at=2018-01-24&ends_at=2018-01-24", nil)
+	req, _ := http.NewRequest("GET", "/v1/appointments/available/1?starts_at=2018-01-24&ends_at=2018-01-24", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
@@ -175,9 +161,9 @@ func TestGetAvailableAppointments(t *testing.T) {
 
 func TestGetAvailableAppointments_TrainerDoesNotexist(t *testing.T) {
 	r := SetUpRouter()
-	r.GET("/appointments/available/:trainer_id", handlers.GetAvailableAppointments)
+	r.GET("/v1/appointments/available/:trainer_id", handlers.GetAvailableAppointments)
 
-	req, _ := http.NewRequest("GET", "/appointments/available/103?starts_at=2018-01-24&ends_at=2018-01-24", nil)
+	req, _ := http.NewRequest("GET", "/v1/appointments/available/103?starts_at=2018-01-24&ends_at=2018-01-24", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
