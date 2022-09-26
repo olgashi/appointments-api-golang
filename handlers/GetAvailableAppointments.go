@@ -5,7 +5,6 @@ import (
 	"appointments-api/mocks"
 	"net/http"
 	"strconv"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,10 +36,6 @@ func GetAvailableAppointments(c *gin.Context) {
 
 	openAppointmentsResponce.appointments = openAppointments
 	openAppointmentsResponce.trainer_id = strId
-
-	fmt.Println(openAppointmentsResponce)
-	fmt.Println(openAppointmentsResponce.trainer_id)
-	fmt.Println(strId)
 
 	c.JSON(http.StatusOK, gin.H{"data": 
 	gin.H{
