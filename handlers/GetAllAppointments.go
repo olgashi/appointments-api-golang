@@ -7,7 +7,7 @@ import (
 
 // To get all existing appointments
 func GetAllAppointments(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{"data": 
+	c.JSON(http.StatusOK, gin.H{"data": 
 	gin.H{
 		"appointments": mocks.Appointments,
 		},

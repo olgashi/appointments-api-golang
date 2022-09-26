@@ -1,3 +1,43 @@
+# To run the Application:
+
+`git clone https://github.com/olgashi/appointments-api-golang.git`
+
+`cd appointments-api-golang/cmd`
+
+`go run .`
+
+The application is now running on `localhost:8080`
+
+Feel free to try any of the endpoints by using `localhost:8080` as the base url.
+
+Example: `http://localhost:8080/v1/appointments/all`
+
+
+# Tests
+- To run Unit Tests for REST API endpoints
+From projects root directory 
+`cd internal`
+`go test`
+
+
+- To run unit tests for logic and utility functions
+From projects root directory 
+`cd cmd`
+`go test`
+
+
+# Folder Structure
+
+├── cmd
+│   ├── main_test.go
+│   ├── main.go - `entry point`
+├── handlers - `handler functions for each of the defined routes`
+├── internal - `logic and utility functions and unit tests`
+├── mocks - `application data`
+├── models - `data schemas`
+└── validators - `validator functions`
+
+
 # Appointment Scheduling API
 `GET /v1/appointments`
 
@@ -214,4 +254,5 @@ Example Response Body:
         "trainer_id": 1
       },
     ]
-  }```
+  }
+  ```
