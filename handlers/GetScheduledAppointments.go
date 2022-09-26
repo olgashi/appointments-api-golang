@@ -20,5 +20,10 @@ func GetScheduledAppointments(c *gin.Context) {
 
 	bookedAppointments := internal.FilterAppointmentsByTrainerId(id, mocks.Appointments)
 
-	c.IndentedJSON(http.StatusOK, bookedAppointments)
+	c.JSON(http.StatusOK, gin.H{"data": 
+	gin.H{
+		"appointments": bookedAppointments,
+		"trainer_id": id,
+	},
+	})
 }

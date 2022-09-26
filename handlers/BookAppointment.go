@@ -53,5 +53,10 @@ func BookAppointment(c *gin.Context) {
 	newAppointment := internal.CreateNewAppointment(payload.Ends_at, newApptId, payload.User_id, payload.Starts_at, payload.Trainer_id)
 	mocks.Appointments = append(mocks.Appointments, *newAppointment)
 	
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "appointment created successfully"})
+	c.JSON(http.StatusCreated, gin.H{"data": 
+	gin.H{
+		"message": "appointment created successfully",
+		"appointment_id": newApptId,
+	  },
+  })
 }

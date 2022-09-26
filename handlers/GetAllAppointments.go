@@ -7,5 +7,9 @@ import (
 
 // To get all existing appointments
 func GetAllAppointments(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, mocks.Appointments)
+	c.JSON(http.StatusCreated, gin.H{"data": 
+	gin.H{
+		"appointments": mocks.Appointments,
+		},
+	})
 }

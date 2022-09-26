@@ -47,8 +47,8 @@ func GetAllAvailableAppointmentsForDateRange(startsAtDate string, endsAtDate str
     currentSlotEnd := extractedEndsAtDate + "T" + allPossibleTimeSlots[endTimeIndex]+ ":00-08:00"
 
 		if _, ok := bookedApptWithinGivenDateRange[currentSlotStart]; !ok {
-			newSlot["Starts_at"] = currentSlotStart
-			newSlot["Ends_at"] = currentSlotEnd
+			newSlot["starts_at"] = currentSlotStart
+			newSlot["ends_at"] = currentSlotEnd
 			openAppointmentSlots = append(openAppointmentSlots, newSlot)
 		}
 		startTimeIndex++

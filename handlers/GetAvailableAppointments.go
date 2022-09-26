@@ -5,6 +5,7 @@ import (
 	"appointments-api/mocks"
 	"net/http"
 	"strconv"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,14 +19,33 @@ func GetAvailableAppointments(c *gin.Context) {
 	endDate = endDate + "T17:00:00-08:00"
 
 	idStr, _ := strconv.Atoi(id)
-	
-	if (!internal.TrainerExists(idStr, mocks.Trainers)) {
+
+	if !internal.TrainerExists(idStr, mocks.Trainers) {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "trainer does not exist"})
 		return
 	}
 
 	openAppointments := internal.GetAllAvailableAppointmentsForDateRange(startDate, endDate, id)
+	strId, _ := strconv.Atoi(id)
 
+	type customResponse struct {
+		appointments []map[string]string
+		trainer_id   int
+	}
 
-	c.IndentedJSON(http.StatusOK, openAppointments)
+	var openAppointmentsResponce customResponse
+
+	openAppointmentsResponce.appointments = openAppointments
+	openAppointmentsResponce.trainer_id = strId
+
+	fmt.Println(openAppointmentsResponce)
+	fmt.Println(openAppointmentsResponce.trainer_id)
+	fmt.Println(strId)
+
+	c.JSON(http.StatusOK, gin.H{"data": 
+	gin.H{
+		"appointments": openAppointments,
+		"trainer_id": id,
+	},
+	})
 }
