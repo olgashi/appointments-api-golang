@@ -3,7 +3,7 @@
 
  __Get a list of available appointment start and end times for a trainer between two dates__
 
- ### Parameters:
+ ## Query and Path Parameters:
 
   - `trainer_id` (requred)
 
@@ -68,11 +68,13 @@ Example Successful Response:
 }
 ```
 
+
+
 `POST /v1/appointments`
 
 __Create a new appointment (as JSON)__
 
-Request Body Parameters:
+## Request Body Parameters:
 
  - `trainer_id` (required)
 
@@ -102,6 +104,9 @@ Example Successful Response:
   }
 }
 ```
+
+
+
 `GET /v1/appointments/scheduled/:trainer_id`
 Get a list of scheduled appointments for a trainer
 
@@ -109,6 +114,9 @@ Get a list of scheduled appointments for a trainer
 
  - `trainer_id` (required)
 Id of the trainer you wish to view all the scheduled appointments for
+
+Example:
+`v1/appointments/scheduled/1`
 
 Success Status code: `200 OK`
 
@@ -158,6 +166,8 @@ Example Successful Response:
   }
 }
 ```
+
+
 
 `GET /v1/appointments/all`
 Get a list of all scheduled appointments
