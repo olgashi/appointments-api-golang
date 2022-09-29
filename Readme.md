@@ -1,4 +1,6 @@
-# To run the Application:
+## Appointment Scheduling API
+
+## To run the Application:
 
 `git clone https://github.com/olgashi/appointments-api-golang.git`
 
@@ -13,20 +15,24 @@ Feel free to try any of the endpoints by using `localhost:8080` as the base url.
 Example: `http://localhost:8080/v1/appointments/all`
 
 
-# Tests
+## Tests
 - To run Unit Tests for REST API endpoints
 From projects root directory 
+
 `cd internal`
+
 `go test`
 
 
 - To run unit tests for logic and utility functions
 From projects root directory 
+
 `cd cmd`
+
 `go test`
 
 
-# Folder Structure
+## Folder Structure
 ```
 ├── cmd
 │   ├── main_test.go
@@ -38,13 +44,11 @@ From projects root directory
 └── validators - `validator functions`
 ```
 
-
-# Appointment Scheduling API
-`GET /v1/appointments`
+### `GET /v1/appointments/available/:trainer_id`
 
  __Get a list of available appointment start and end times for a trainer between two dates__
 
- ## Query and Path Parameters:
+ ### Query and Path Parameters:
 
   - `trainer_id` (requred)
 
@@ -111,11 +115,11 @@ Example Successful Response:
 
 
 
-`POST /v1/appointments`
+### `POST /v1/appointments`
 
 __Create a new appointment (as JSON)__
 
-## Request Body Parameters:
+### Request Body Parameters:
 
  - `trainer_id` (required)
 
@@ -148,7 +152,7 @@ Example Successful Response:
 
 
 
-`GET /v1/appointments/scheduled/:trainer_id`
+### `GET /v1/appointments/scheduled/:trainer_id`
 Get a list of scheduled appointments for a trainer
 
 ### Parameters:
@@ -210,7 +214,7 @@ Example Successful Response:
 
 
 
-`GET /v1/appointments/all`
+### `GET /v1/appointments/all`
 Get a list of all scheduled appointments
 
 Example Response Body:
