@@ -27,7 +27,7 @@ From projects root directory
 
 
 # Folder Structure
-
+```
 ├── cmd
 │   ├── main_test.go
 │   ├── main.go - `entry point`
@@ -36,6 +36,7 @@ From projects root directory
 ├── mocks - `application data`
 ├── models - `data schemas`
 └── validators - `validator functions`
+```
 
 
 # Appointment Scheduling API
