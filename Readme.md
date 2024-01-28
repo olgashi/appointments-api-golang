@@ -1,4 +1,7 @@
 ## Appointment Scheduling API
+![go](https://github.com/olgashi/appointments-api-golang/assets/41551585/689412c0-b483-4159-94b6-02bbf190787f)<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px"  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+</svg>
 
 ## To run the Application:
 
