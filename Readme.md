@@ -2,6 +2,10 @@
 
 ## To run the Application:
 
+Make sure you have Go installed.
+
+Refer to this page for the installation instructions: `https://go.dev/doc/install`
+
 `git clone https://github.com/olgashi/appointments-api-golang.git`
 
 `cd appointments-api-golang/cmd`
@@ -14,35 +18,6 @@ Feel free to try any of the endpoints by using `localhost:8080` as the base url.
 
 Example: `http://localhost:8080/v1/appointments/all`
 
-
-## Tests
-- To run Unit Tests for REST API endpoints
-From projects root directory 
-
-`cd internal`
-
-`go test`
-
-
-- To run unit tests for logic and utility functions
-From projects root directory 
-
-`cd cmd`
-
-`go test`
-
-
-## Folder Structure
-```
-├── cmd
-│   ├── main_test.go
-│   ├── main.go - `entry point`
-├── handlers - `handler functions for each of the defined routes`
-├── internal - `logic and utility functions and unit tests`
-├── mocks - `application data`
-├── models - `data schemas`
-└── validators - `validator functions`
-```
 
 ### `GET /v1/appointments/available/:trainer_id`
 
@@ -261,3 +236,32 @@ Example Response Body:
     ]
   }
   ```
+
+## Tests
+- To run Unit Tests for REST API endpoints
+From projects root directory 
+
+`cd internal`
+
+`go test`
+
+
+- To run unit tests for logic and utility functions
+From projects root directory 
+
+`cd cmd`
+
+`go test`
+
+
+## Folder Structure
+```
+├── cmd
+│   ├── main_test.go
+│   ├── main.go - `entry point`
+├── handlers - `handler functions for each of the defined routes`
+├── internal - `logic and utility functions and unit tests`
+├── mocks - `application data`
+├── models - `data schemas`
+└── validators - `validator functions`
+```
